@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <robot
-  name="rbfiqus_base"
+  name="rbfiqus_agrimate_base"
   xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:include
     filename="$(find robotnik_description)/urdf/bodies/rbfiqus/rbfiqus_agrimate_body.urdf.xacro" />
@@ -9,21 +9,30 @@
   <xacro:include
     filename="$(find robotnik_description)/urdf/wheels/steering_wheel/wheel_rbfiqus_agrimate_back.urdf.xacro" />
   <xacro:include
-    filename="$(find robotnik_description)/simulators/gazebo_ignition/rbfiqus/rbfiqus_control.urdf.xacro" />
+    filename="$(find robotnik_description)/simulators/gazebo_ignition/rbfiqus_agrimate/rbfiqus_agrimate_control.urdf.xacro" />
 
   <!-- WHEELS PROPERTIES -->
   <xacro:property
-    name="wheel_offset_x"
+    name="front_wheel_offset_x"
     value="0.750" />
   <xacro:property
-    name="wheel_offset_y"
+    name="front_wheel_offset_y"
     value="0.9211" />
   <xacro:property
-    name="wheel_offset_z"
+    name="front_wheel_offset_z"
     value="0.15" />
+  <xacro:property
+    name="back_wheel_offset_x"
+    value="-0.822" />
+  <xacro:property
+    name="back_wheel_offset_y"
+    value="0.7779" />
+  <xacro:property
+    name="back_wheel_offset_z"
+    value="0.13619" />
 
   <xacro:macro
-    name="rbfiqus"
+    name="rbfiqus_agrimate"
     params="
       prefix:=robot_
       gazebo_ignition:=false
@@ -42,7 +51,7 @@
       reflect="false"
       hq="${hq}">
       <origin
-        xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}"
+        xyz="${front_wheel_offset_x} -${front_wheel_offset_y} ${front_wheel_offset_z}"
         rpy="0 0 0" />
     </xacro:steering_wheel_rbfiqus_agrimate>
     <xacro:steering_wheel_rbfiqus_agrimate
@@ -51,7 +60,7 @@
       reflect="true"
       hq="${hq}">
       <origin
-        xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}"
+        xyz="${front_wheel_offset_x} ${front_wheel_offset_y} ${front_wheel_offset_z}"
         rpy="0 0 0" />
     </xacro:steering_wheel_rbfiqus_agrimate>
     <xacro:wheel_rbfiqus_agrimate_back
@@ -61,7 +70,7 @@
       hq="${hq}"
       left="true">
       <origin
-        xyz="-0.822 0.7779 0.13619"
+        xyz="${back_wheel_offset_x} ${back_wheel_offset_y} ${back_wheel_offset_z}"
         rpy="0 0 0" />
     </xacro:wheel_rbfiqus_agrimate_back>
     <xacro:wheel_rbfiqus_agrimate_back
@@ -71,11 +80,11 @@
       hq="${hq}"
       left="false">
       <origin
-        xyz="-0.822 -0.7779 0.13619"
+        xyz="${back_wheel_offset_x} -${back_wheel_offset_y} ${back_wheel_offset_z}"
         rpy="0 0 0" />
     </xacro:wheel_rbfiqus_agrimate_back>
     <xacro:if value="$(arg gazebo_ignition)">
-      <xacro:rbfiqus_gz_ignition_control
+      <xacro:rbfiqus_agrimate_gz_ignition_control
         namespace="${namespace}"
         prefix="${prefix}" />
     </xacro:if>

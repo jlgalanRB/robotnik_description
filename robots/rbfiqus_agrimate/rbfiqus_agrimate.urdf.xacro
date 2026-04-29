@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
 <robot
-  name="rbfiqus"
+  name="rbfiqus_agrimate"
   xmlns:xacro="http://wiki.ros.org/xacro">
   <xacro:include
-    filename="$(find robotnik_description)/urdf/bases/rbfiqus/rbfiqus_agrimate_base.urdf.xacro" />
+    filename="$(find robotnik_description)/urdf/bases/rbfiqus_agrimate/rbfiqus_agrimate_base.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
    <xacro:include
@@ -24,8 +24,8 @@
     default="ur5e" />
 
 
-  <!-- RB-FIQUS -->
-  <xacro:rbfiqus
+  <!-- RB-FIQUS AGRIMATE -->
+  <xacro:rbfiqus_agrimate
     prefix="$(arg prefix)"
     gazebo_ignition="$(arg gazebo_ignition)"
     namespace="$(arg namespace)" />
@@ -42,7 +42,7 @@
   </xacro:sensor_vectornav>
 
   <!-- ARMS -->
-  <xacro:arm_ur
+  <!--<xacro:arm_ur
     ur_type="$(arg ur_type)"
     frame_prefix="$(arg prefix)arm1_"
     parent="$(arg prefix)chassis_link"
@@ -60,7 +60,7 @@
     <origin
       xyz="0.005 -0.7 0.542"
       rpy="0 0 0" />
-  </xacro:arm_ur >
+  </xacro:arm_ur > -->
 
 
     <!-- LASERS -->
@@ -115,5 +115,17 @@
       xyz="-0.47 0 1.7"
       rpy="${pi} ${-1.52*pi} 0" />
   </xacro:sensor_robosense_bpearl>
+
+  <!-- GPS -->
+  <xacro:sensor_ublox_with_mast
+    frame_prefix="$(arg prefix)gps_"
+    parent="$(arg prefix)base_link"
+    node_namespace="$(arg namespace)"
+    node_name="gps"
+    gazebo_ignition="$(arg gazebo_ignition)">
+    <origin
+      xyz="0.0 0.0 2.0"
+      rpy="0 0 0" />
+  </xacro:sensor_ublox_with_mast>
 
 </robot>

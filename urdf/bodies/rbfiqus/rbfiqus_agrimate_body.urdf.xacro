@@ -24,7 +24,6 @@
 
     <!-- BASE_LINK -->
     <link name="${prefix}base_link" />
-
     <!-- Chassis -->
     <joint
       name="${prefix}chassis_joint"
@@ -62,16 +61,28 @@
             </inertial>
         </link>
 
-    <!-- DOCKING CONTACT -->
-    <link name="${prefix}base_docking_contact" />
+    <!-- Front axle control frame used by docking/navigation tests. -->
+    <link name="${prefix}base_docking_control" />
     <joint
       name="${prefix}base_docking_joint"
       type="fixed">
       <origin
-        xyz="0.6405 0 0.10264"
+        xyz="0.750 0 0"
         rpy="0 0 0" />
-      <parent link="${prefix}chassis_link" />
-      <child link="${prefix}base_docking_contact" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}base_docking_control" />
+    </joint>
+
+    <!-- Rear axle frame for comparing base/front/rear axle trajectories. -->
+    <link name="${prefix}base_rear_axle" />
+    <joint
+      name="${prefix}base_rear_axle_joint"
+      type="fixed">
+      <origin
+        xyz="-0.822 0 0"
+        rpy="0 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}base_rear_axle" />
     </joint>
   </xacro:macro>
 </robot>
